@@ -1,0 +1,69 @@
+200 OK sucess
+201 Created
+400 Bad Request
+401 Unauthorized not logged in
+403 Forbidden Logged in but not allowed
+404 Not Found
+409 Conflict
+422 Unprocessable Entity
+500 Internal Server Error
+204 No Content
+HTTP status codes indicate the result of an HTTP request, where 2xx represents success, 4xx client errors, and 5xx server errors.
+
+Professional Rule of Thumb
+Action	Status Code
+Fetch data	200
+Create data	201
+Invalid input	400
+Auth required	401
+No permission	403
+Not found	404
+Duplicate	409
+Server crash	500
+
+MVC FLOW (Parallel to What You Know)
+Client (Postman/Frontend)
+      ↓
+Route (/api/v1/food)
+      ↓
+Controller (addFood / getAllFood)
+      ↓
+Model (MongoDB)
+
+MySQL Flow:
+Client
+  ↓
+API
+  ↓
+SQL Query
+  ↓
+Database 
+
+Request
+  ↓
+Auth Middleware (JWT check) middleware is the security guard 
+  ↓
+Controller
+  ↓
+Response
+ 
+
+Request → Router → Controller → Model → Database
+
+
+Express Router is used to define modular route handlers and connect HTTP methods to controller functions, following MVC architecture.
+what is req.body??
+jwt middleware 
+race a request line-by-line in debugger
+✅ Build login router
+✅ Add auth middleware
+race a request line-by-line in debugger
+✅ Build login router
+✅ Add auth middleware 
+using Zod or Joi in your Node.js API to ensure incoming data is clean).
+you're likely used to handling null values in your APIs with simple if/else checks.
+
+
+first of all create  the model and in model require mangoose then add logic in controller in which require model 
+then update the routes that directs traffiic in which we require express and require controller functions to add 
+then uodate the main file in which url id added  to which url request is send 
