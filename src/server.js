@@ -1,18 +1,18 @@
+const http = require("http");
 const app = require("./app");
+const { initSocket } = require("./config/socket");
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server is flying on port ${PORT}`);
-});
+// Create a raw HTTP server from the Express app
+// (Socket.IO needs direct access to the HTTP server, not just the Express app)
+const httpServer = http.createServer(app);
 
-// {
-//     {
-//     "success": true,
-//     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Nzk2NzgxYWI4NmRlYTk0MmM5NGI3MyIsImlhdCI6MTc2OTU2NDAzMywiZXhwIjoxNzcyMTU2MDMzfQ.P9cWkY65YC9Y2XG-NDNVGiTxbmoJYS5Wabta4CL8BJw",
-//     "data": {
-//         "id": "69796781ab86dea942c94b73",
-//         "name": "Ahmad",
-//         "email": "ahmad@example.com"
-//     }
-// }
+// Attach Socket.IO to the HTTP server
+initSocket(httpServer);
+
+// Start listening
+httpServer.listen(PORT, () => {
+  console.log(`🚀 Server is flying on port ${PORT}`);
+  console.log(`⚡ Socket.IO is live on port ${PORT}`);
+});

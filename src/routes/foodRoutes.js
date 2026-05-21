@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   addfood,
   getallfood,
+  getsinglefood,
   updatefood,
   deletefood,
 } = require("../controllers/foodController");
@@ -17,7 +18,8 @@ router
 
 router
   .route("/:id")
-  .put(protect, validatefood, updatefood)
-  .delete(protect, deletefood);
+  .get(getsinglefood)
+  .put(protect, authorize("admin"), validatefood, updatefood)
+  .delete(protect, authorize("admin"), deletefood);
 
 module.exports = router;
