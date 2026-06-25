@@ -24,7 +24,7 @@ const Navbar = () => {
           <>
             <Link to="/orders" style={styles.link}>My Orders</Link>
             {isAdmin && (
-              <Link to="/place-order" style={styles.link}>Add Food</Link>
+              <Link to="/admin" style={styles.link}>Admin Dashboard</Link>
             )}
             {!isAdmin && (
               <Link to="/place-order" style={styles.link}>Place Order</Link>

@@ -22,6 +22,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import PlaceOrder from "./pages/PlaceOrder";
 import MyOrders from "./pages/MyOrders";
+import AdminDashboard from "./pages/AdminDashboard";
 
 // Redirect logged-in users away from auth pages
 const GuestRoute = ({ children }) => {
@@ -47,6 +48,11 @@ const App = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/place-order" element={<PlaceOrder />} />
           <Route path="/orders" element={<MyOrders />} />
+        </Route>
+
+        {/* Protected routes — Admin only */}
+        <Route element={<ProtectedRoute adminOnly />}>
+          <Route path="/admin" element={<AdminDashboard />} />
         </Route>
 
         {/* 404 fallback */}
