@@ -16,6 +16,8 @@ import { useAuth } from "./context/AuthContext";
 
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
+import CustomerRoute from "./components/CustomerRoute";
 
 import Menu from "./pages/Menu";
 import Login from "./pages/Login";
@@ -40,19 +42,21 @@ const App = () => {
         <Route path="/" element={<Navigate to="/menu" replace />} />
 
         {/* Public routes */}
-        <Route path="/menu" element={<Menu />} />
         <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
         <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
 
-        {/* Protected routes — any logged-in user */}
-        <Route element={<ProtectedRoute />}>
-          <Route path="/place-order" element={<PlaceOrder />} />
+        {/* CUSTOMER ONLY ROUTES */}
+        <Route element={<CustomerRoute />}>
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/cart" element={<PlaceOrder />} />
           <Route path="/orders" element={<MyOrders />} />
         </Route>
 
-        {/* Protected routes — Admin only */}
-        <Route element={<ProtectedRoute adminOnly />}>
-          <Route path="/admin" element={<AdminDashboard />} />
+        {/* ADMIN ONLY ROUTES */}
+        <Route element={<AdminRoute />}>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/foods" element={<AdminDashboard />} /> {/* Mapped to same dashboard for now */}
+          <Route path="/admin/orders" element={<MyOrders adminView={true} />} /> {/* Using existing MyOrders for now */}
         </Route>
 
         {/* 404 fallback */}

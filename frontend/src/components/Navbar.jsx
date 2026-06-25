@@ -13,22 +13,31 @@ const Navbar = () => {
 
   return (
     <nav style={styles.nav}>
-      <Link to="/menu" style={styles.brand}>
+      <Link to={isAdmin ? "/admin/dashboard" : "/menu"} style={styles.brand}>
         🍽️ FoodApp
       </Link>
 
       <div style={styles.links}>
-        <Link to="/menu" style={styles.link}>Menu</Link>
-
         {isAuthenticated ? (
           <>
-            <Link to="/orders" style={styles.link}>My Orders</Link>
+            {/* ADMIN LINKS */}
             {isAdmin && (
-              <Link to="/admin" style={styles.link}>Admin Dashboard</Link>
+              <>
+                <Link to="/admin/dashboard" style={styles.link}>Dashboard</Link>
+                <Link to="/admin/foods" style={styles.link}>Food Management</Link>
+                <Link to="/admin/orders" style={styles.link}>Orders</Link>
+              </>
             )}
+
+            {/* CUSTOMER LINKS */}
             {!isAdmin && (
-              <Link to="/place-order" style={styles.link}>Place Order</Link>
+              <>
+                <Link to="/menu" style={styles.link}>Menu</Link>
+                <Link to="/cart" style={styles.link}>Cart</Link>
+                <Link to="/orders" style={styles.link}>My Orders</Link>
+              </>
             )}
+
             <span style={styles.userLabel}>👤 {user?.name}</span>
             <button onClick={logoutUser} style={styles.logoutBtn}>
               Logout
@@ -36,6 +45,8 @@ const Navbar = () => {
           </>
         ) : (
           <>
+            {/* PUBLIC LINKS */}
+            <Link to="/menu" style={styles.link}>Menu</Link>
             <Link to="/login" style={styles.link}>Login</Link>
             <Link to="/register" style={styles.registerBtn}>Register</Link>
           </>

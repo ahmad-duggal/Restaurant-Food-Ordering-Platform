@@ -49,16 +49,22 @@ export const AuthProvider = ({ children }) => {
    * Call this after a successful login/register API response
    * @param {string} token - JWT from backend
    * @param {object} userData - user object from backend
-   * @param {string} redirectTo - where to navigate after login (default: /menu)
    */
-  const loginUser = (token, userData, redirectTo = "/menu") => {
+  const loginUser = (token, userData) => {
     saveToken(token);
     saveUser(userData);
     setToken(token);
     setUser(userData);
+    
     // Connect socket and join user/admin room
     connectSocket(userData._id || userData.id, userData.role);
-    navigate(redirectTo);
+    
+    // Role-based redirection logic
+    if (userData.role === "admin") {
+      navigate("/admin/dashboard");
+    } else {
+      navigate("/menu");
+    }
   };
 
   /**
